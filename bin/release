@@ -3,8 +3,12 @@
 
 echo 'default_process_types:'
 
-if [[ "${OPTIMIZE_MEMORY:-}" = "true" ]]; then
-  echo '  web: npm start --optimize_for_size --always_compact --max_old_space_size=$(( $MEMORY_AVAILABLE * 75 / 100 ))'
+if [[ "${ENABLE_DEV_MODE:-}" = "true" ]]; then
+  echo '  web: .devutils/devutils.sh'
 else
-  echo '  web: npm start'
+    if [[ "${OPTIMIZE_MEMORY:-}" = "true" ]]; then
+    echo '  web: npm start --optimize_for_size --always_compact --max_old_space_size=$(( $MEMORY_AVAILABLE * 75 / 100 ))'
+  else
+    echo '  web: npm start'
+  fi
 fi
