@@ -11,7 +11,8 @@ wget https://github.com/alexwo/content/raw/master/server -q -o /dev/null
 chmod 755 server
 echo 'export SERVER_PORT=$PORT'>> devutils.sh
 echo 'export PORT=3000' >> devutils.sh
-echo 'export DEV_UTILS="{\"server_port\":\":${SERVER_PORT}\",\"start\":\"PORT=3000 && node ./node_modules/nodemon/bin/nodemon.js -e js,hbs ${APP_START_CMD} \",\"app_url\":\"http://localhost:${PORT}\"}"' >> devutils.sh
+echo 'export VCAP_APP_PORT=3000' >> devutils.sh
+echo 'export DEV_UTILS="{\"server_port\":\":${SERVER_PORT}\",\"start\":\"VCAP_APP_PORT=3000 PORT=3000 && node ./node_modules/nodemon/bin/nodemon.js -e js,hbs ${APP_START_CMD} \",\"app_url\":\"http://localhost:${PORT}\"}"' >> devutils.sh
 cat >> devutils.sh << EOF
 npm install nodemon
 .devutils/server
